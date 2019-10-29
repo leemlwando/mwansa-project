@@ -2,7 +2,9 @@ const fs = require("fs");
 const path = require("path");
 const printer = require("pdf-to-printer");
 const fetch = require("node-fetch");
-
+const options = {
+  printer: "HP-LaserJet-M1522nf-MFP-2"
+};
 function print(request, response) {
   function onSuccess() {
     response.send({ status: "completed" });
@@ -18,7 +20,7 @@ function print(request, response) {
       const pdf = save(buffer);
 
       printer
-        .print(pdf)
+        .print(pdf, options)
         .then(onSuccess)
         .catch(onError)
         .finally(() => remove(pdf));

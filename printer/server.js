@@ -10,6 +10,10 @@ const fetch = require("node-fetch");
 
 // const print = require("./src/print");
 const list = require("./src/list");
+//put your printer here
+const options = {
+  printer: "HP-LaserJet-M1522nf-MFP-2"
+};
 
 const app = express();
 app.use(cors());
@@ -34,7 +38,7 @@ app.post('/request', (req, res, next) => {
     }).pipe(fs.createWriteStream(pdfPath)).on('finish', function(){
       console.log('end writing')
         printer
-          .print(pdfPath)
+          .print(pdfPath, options)
           .then(onSuccess)
           .catch(onError)
           .finally(() => remove(pdfPath));
